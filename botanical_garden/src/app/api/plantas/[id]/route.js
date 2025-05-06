@@ -1,4 +1,4 @@
-// app/api/plantas/[id]/route.js
+
 
 export async function GET(request, { params }) {
     const { id } = params;

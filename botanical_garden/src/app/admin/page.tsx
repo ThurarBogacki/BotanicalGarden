@@ -17,14 +17,13 @@ export default function AdminPage() {
   const [origem, setOrigem] = useState('');
   const [tipoDeFolha, setTipoDeFolha] = useState('');
 
-  const router = useRouter(); // Hook do Next.js para navegação
+  const router = useRouter(); 
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      // Faz a requisição para autenticação com nome de usuário e senha
-      const loginResponse = await fetch('/api/login', {
+      const loginResponse = await fetch('api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,6 +47,12 @@ export default function AdminPage() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+  
+    if (!nomePopular.trim() || !descricao.trim()) {
+      alert('Por favor, preencha pelo menos o nome popular e a descrição da planta.');
+      return;
+    }
+  
     const newPlanta = {
       nomePopular,
       nomeCientifico,
@@ -59,27 +64,37 @@ export default function AdminPage() {
       origem,
       tipoDeFolha,
     };
-
-    await fetch('/api/plantas', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newPlanta),
-    });
-
-    alert('🌱 Planta cadastrada com sucesso!');
-    setNomePopular('');
-    setNomeCientifico('');
-    setDescricao('');
-    setCuidados('');
-    setImagemUrl('');
-    setAlturaMaxima('');
-    setCorDaFlor('');
-    setOrigem('');
-    setTipoDeFolha('');
+  
+    try {
+      const res = await fetch('/api/plantas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newPlanta),
+      });
+  
+      if (!res.ok) {
+        alert('Erro ao cadastrar planta!');
+        return;
+      }
+  
+      alert('🌱 Planta cadastrada com sucesso!');
+      setNomePopular('');
+      setNomeCientifico('');
+      setDescricao('');
+      setCuidados('');
+      setImagemUrl('');
+      setAlturaMaxima('');
+      setCorDaFlor('');
+      setOrigem('');
+      setTipoDeFolha('');
+    } catch (error) {
+      alert('Erro ao enviar dados!');
+      console.error(error);
+    }
   };
 
   const handleVoltar = () => {
-    router.push('/'); // Navega para a página inicial
+    router.push('/'); 
   };
 
   if (!autenticado) {
@@ -132,9 +147,9 @@ export default function AdminPage() {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {[ 
-            { label: 'Nome Popular', value: nomePopular, setter: setNomePopular },
+            { label: 'Nome Popular*', value: nomePopular, setter: setNomePopular },
             { label: 'Nome Científico', value: nomeCientifico, setter: setNomeCientifico },
-            { label: 'Descrição', value: descricao, setter: setDescricao, type: 'textarea' },
+            { label: 'Descrição*', value: descricao, setter: setDescricao, type: 'textarea' },
             { label: 'Cuidados', value: cuidados, setter: setCuidados },
             { label: 'URL da Imagem (Usar o link de alguma imagem disponível na web)', value: imagemUrl, setter: setImagemUrl },
             { label: 'Altura Máxima', value: alturaMaxima, setter: setAlturaMaxima },

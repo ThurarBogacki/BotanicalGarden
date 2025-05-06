@@ -30,36 +30,32 @@ export default function PlantaPage() {
     const username = prompt("Digite o nome de usuário do admin:");
     const password = prompt("Digite a senha do admin:");
   
-    // Verifica se o usuário preencheu as credenciais
     if (!username || !password) {
       alert("Você precisa inserir o nome de usuário e a senha.");
       return;
     }
   
-    // 1. Valida o login com o endpoint de login
     try {
       const loginResponse = await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }), // Envia o nome de usuário e a senha
+        body: JSON.stringify({ username, password }), 
       });
   
-      // Se o login falhar
       if (!loginResponse.ok) {
         const errorData = await loginResponse.json();
         alert(errorData.message || 'Falha na autenticação!');
         return;
       }
   
-      // 2. Caso o login seja bem-sucedido, faça a requisição para deletar a planta
       const deleteResponse = await fetch(`/api/plantas/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id }), // Envia o id da planta para ser deletada
+        body: JSON.stringify({ id }), 
       });
   
       if (!deleteResponse.ok) {
@@ -108,8 +104,8 @@ export default function PlantaPage() {
     try {
       const qrDataUrl = await QRCode.toDataURL(url, {
         color: {
-          dark: "#0f766e", // verde escuro
-          light: "#FFFFFF" // fundo branco
+          dark: "#0f766e", 
+          light: "#FFFFFF" 
         },
         margin: 2,
         scale: 8
@@ -119,27 +115,26 @@ export default function PlantaPage() {
   
       const pageWidth = pdf.internal.pageSize.getWidth();
   
-      // Título centralizado
+
       pdf.setFontSize(20);
-      pdf.setTextColor(15, 118, 110); // verde escuro
+      pdf.setTextColor(15, 118, 110); 
       const titulo = `Planta: ${planta?.nomePopular}`;
       const tituloWidth = pdf.getTextWidth(titulo);
       pdf.text(titulo, (pageWidth - tituloWidth) / 2, 20);
   
-      // Subtítulo
+
       pdf.setFontSize(13);
       pdf.setTextColor(0, 0, 0);
       const subtitulo = "Acesse mais informações sobre esta planta:";
       const subtituloWidth = pdf.getTextWidth(subtitulo);
       pdf.text(subtitulo, (pageWidth - subtituloWidth) / 2, 35);
-  
-      // URL (azul e clicável)
+
       pdf.setTextColor(0, 0, 255);
       const linkWidth = pdf.getTextWidth(url);
       const linkX = (pageWidth - linkWidth) / 2;
       pdf.textWithLink(url, linkX, 45, { url });
   
-      // Imagem centralizada
+
       const qrSize = 100;
       const centerX = (pageWidth - qrSize) / 2;
       pdf.addImage(qrDataUrl, 'PNG', centerX, 60, qrSize, qrSize);

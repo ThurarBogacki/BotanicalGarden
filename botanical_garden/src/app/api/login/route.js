@@ -1,7 +1,7 @@
 export async function POST(request) {
     try {
       const body = await request.json();
-      console.log("Corpo recebido no /api/login local:", body); // debug
+      console.log("Corpo recebido no /api/login local:", body); 
   
       const response = await fetch('https://elc133-production.up.railway.app/login', {
         method: 'POST',
@@ -12,7 +12,7 @@ export async function POST(request) {
       });
   
       const responseText = await response.text();
-      console.log("Resposta da API externa:", responseText); // debug externo
+      console.log("Resposta da API externa:", responseText); 
   
       if (!response.ok) {
         return new Response(responseText, { status: response.status });
