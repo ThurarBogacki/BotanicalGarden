@@ -38,7 +38,7 @@ export default function PlantaPage() {
   
     // 1. Valida o login com o endpoint de login
     try {
-      const loginResponse = await fetch('/api/login', {
+      const loginResponse = await fetch('/external-api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export default function PlantaPage() {
       }
   
       // 2. Caso o login seja bem-sucedido, faça a requisição para deletar a planta
-      const deleteResponse = await fetch(`/api/plantas/${id}`, {
+      const deleteResponse = await fetch(`/external-api/plantas/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export default function PlantaPage() {
 
     const fetchPlanta = async () => {
       try {
-        const res = await fetch(`/api/plantas/${params.id}`);
+        const res = await fetch(`/external-api/plantas/${params.id}`);
         if (!res.ok) {
           throw new Error('Planta não encontrada.');
         }

@@ -23,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPlantas = async () => {
       try {
-        const res = await fetch('/api/plantas');
+        const res = await fetch('/external-api/plantas');
         const data = await res.json();
         setPlantas(data);
       } catch (error) {
