@@ -24,7 +24,7 @@ export default function AdminPage() {
 
     try {
       // Faz a requisição para autenticação com nome de usuário e senha
-      const loginResponse = await fetch('/external-api/login', {
+      const loginResponse = await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export default function AdminPage() {
       tipoDeFolha,
     };
 
-    await fetch('/external-api/plantas', {
+    await fetch('/api/plantas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newPlanta),
