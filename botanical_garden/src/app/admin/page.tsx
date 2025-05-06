@@ -149,14 +149,14 @@ export default function AdminPage() {
               placeholder="Digite o nome de usuário"
               value={usernameInput}
               onChange={(e) => setUsernameInput(e.target.value)}
-              className="border p-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="border text-black p-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <input
               type="password"
               placeholder="Digite a senha"
               value={senhaInput}
               onChange={(e) => setSenhaInput(e.target.value)}
-              className="border p-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="border text-black p-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <button
               type="submit"
@@ -175,7 +175,7 @@ export default function AdminPage() {
       <div className="bg-white rounded-3xl shadow-xl p-8 w-full max-w-2xl mb-10">
         <button
           onClick={handleVoltar}
-          className="text-sm text-green-600 mb-4 flex items-center gap-2 hover:underline"
+          className="text-sm cursor-pointer text-green-600 mb-4 flex items-center gap-2 hover:underline"
         >
           <span>←</span> Voltar para a Home
         </button>
@@ -202,14 +202,14 @@ export default function AdminPage() {
                 <textarea
                   value={field.value}
                   onChange={(e) => field.setter(e.target.value)}
-                  className="border p-2 rounded-md shadow-sm resize-none h-24 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="border text-gray-600 p-2 rounded-md shadow-sm resize-none h-24 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               ) : (
                 <input
                   type="text"
                   value={field.value}
                   onChange={(e) => field.setter(e.target.value)}
-                  className="border p-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="border text-black p-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               )}
             </div>
@@ -218,7 +218,7 @@ export default function AdminPage() {
           <div className="pt-4">
             <button
               type="submit"
-              className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 font-medium transition shadow-md"
+              className="w-full cursor-pointer bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 font-medium transition shadow-md"
             >
               Cadastrar Planta
             </button>
@@ -237,7 +237,7 @@ export default function AdminPage() {
                 <span className="text-green-900 font-medium">{planta.nomePopular}</span>
                 <button
                   onClick={() => handleDelete(planta._id)}
-                  className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm"
+                  className="bg-red-600 cursor-pointer text-white px-3 py-1 rounded hover:bg-red-700 text-sm"
                 >
                   Deletar
                 </button>
