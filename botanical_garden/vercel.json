@@ -1,0 +1,13 @@
+{
+    "rewrites": [
+      {
+        "source": "/api/plantas/:path*",
+        "destination": "https://elc133-production.up.railway.app/plantas/:path*"
+      },
+      {
+        "source": "/api/login",
+        "destination": "https://elc133-production.up.railway.app/login"
+      }
+    ]
+  }
+  
