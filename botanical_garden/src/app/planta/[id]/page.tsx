@@ -25,55 +25,6 @@ export default function PlantaPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  
-  const handleDelete = async (id: string) => {
-    const username = prompt("Digite o nome de usuário do admin:");
-    const password = prompt("Digite a senha do admin:");
-  
-    if (!username || !password) {
-      alert("Você precisa inserir o nome de usuário e a senha.");
-      return;
-    }
-  
-    try {
-      const loginResponse = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }), 
-      });
-  
-      if (!loginResponse.ok) {
-        const errorData = await loginResponse.json();
-        alert(errorData.message || 'Falha na autenticação!');
-        return;
-      }
-  
-      const deleteResponse = await fetch(`/api/plantas/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id }), 
-      });
-  
-      if (!deleteResponse.ok) {
-        throw new Error('Erro ao deletar a planta');
-      }
-  
-      alert('Planta deletada com sucesso!');
-
-      router.push('/');  
-    } catch (error) {
-      console.error('Erro:', error);
-      alert('Erro ao tentar realizar a operação!');
-    }
-  };
-  
-  
-  
-
   useEffect(() => {
     if (!params.id) {
       setError("ID da planta não encontrado.");
@@ -160,6 +111,12 @@ export default function PlantaPage() {
 
   return (
     <main className="p-6 md:p-10 max-w-4xl mx-auto bg-white shadow-lg rounded-3xl mt-10">
+            <button
+      onClick={() => router.push('/')}
+      className="mt-4 mb-[50px] cursor-pointer  text-gray-800 font-medium px-6 py-3 rounded-xl shadow-md transition duration-300"
+    >
+      ← Voltar para Home
+    </button>
       <img
         src={planta.imagemUrl}
         alt={planta.nomePopular}
@@ -184,13 +141,6 @@ export default function PlantaPage() {
       >
         📄 Gerar QR Code em PDF
       </button>
-      <button
-        onClick={() => handleDelete(planta._id)}
-        className="mt-4 cursor-pointer ml-[10px] bg-red-600 hover:bg-red-700 text-white font-medium px-6 py-3 rounded-xl shadow-md transition duration-300"
-      >
-        🗑️ Deletar Planta
-      </button>
-
     </main>
   );
 }
