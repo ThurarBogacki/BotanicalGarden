@@ -17,3 +17,21 @@ export async function GET(request, { params }) {
     }
   }
   
+  export async function DELETE(request, { params }) {
+    const { id } = params;
+  
+    try {
+      const response = await fetch(`https://elc133-production.up.railway.app/plantas/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (!response.ok) {
+        return new Response('Falha ao deletar dado', { status: response.status });
+      }
+  
+      return new Response('Dado deletado com sucesso', { status: 200 });
+    } catch (error) {
+      return new Response('Erro ao deletar dado', { status: 500 });
+    }
+  }
+  
